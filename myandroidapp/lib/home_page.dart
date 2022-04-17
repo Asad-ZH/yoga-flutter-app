@@ -202,8 +202,8 @@ class _HomePageState extends State<HomePage> {
                      child: Column(
                          mainAxisAlignment: MainAxisAlignment.center,
                          children:[
-                           Image.asset(
-                             'resume.png',
+                           Image.network(
+                             "https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/resume.png?raw=true",
                              fit: BoxFit.contain,
                              height: 60,
                            ),
