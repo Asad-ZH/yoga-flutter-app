@@ -4,8 +4,9 @@ import 'NavBar.dart';
 import 'SecondScreen.dart';
 import 'Settings.dart';
 import 'home_page.dart';
+import 'sticky_notes.dart';
 
-void main() => runApp(MaterialApp(home: FlexibiltyEssentials()));
+void main() => runApp(MaterialApp(home: HomePage()));
 
 class LoginPage extends StatelessWidget {
   final formKey = GlobalKey<FormState>();

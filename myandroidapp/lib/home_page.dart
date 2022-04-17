@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:myandroidapp/main.dart';
 import 'Fitness_files/flexibilty_essentials.dart';
 import 'NavBar.dart';
@@ -45,11 +47,11 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.black,
-        title:Image.asset(
-                'appbarlogo.jpg',
-                fit: BoxFit.contain,
-                height: 50,
-              ),
+        title:Image.network(
+          'https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/appbarlogo.jpg?raw=true',
+          fit: BoxFit.contain,
+          height: 50,
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.settings),
@@ -156,8 +158,8 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children:[
 
-                        Image.asset(
-                        'fitness.png',
+                        Image.network(
+                        "https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/fitness.png?raw=true",
                         fit: BoxFit.contain,
                         height: 80,
                         ),
@@ -179,8 +181,8 @@ class _HomePageState extends State<HomePage> {
                          mainAxisAlignment: MainAxisAlignment.center,
 
                          children:[
-                           Image.asset(
-                             'diet.png',
+                           Image.network(
+                             "https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/diet.png?raw=true",
                              fit: BoxFit.contain,
                              height: 60,
                            ),
