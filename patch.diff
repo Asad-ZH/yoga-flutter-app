@@ -1,0 +1,1290 @@
+From b17b3b5ab2d6a8679b078c961c37fdeeba6d60ab Mon Sep 17 00:00:00 2001
+From: Asad <asadzahid1479@gmail.com>
+Date: Mon, 18 Apr 2022 01:48:44 +0500
+Subject: [PATCH] add sqlite in flutter project
+
+---
+ myandroidapp/assets/sticky-notes.png          | Bin 0 -> 15210 bytes
+ .../Fitness_files/flexibilty_essentials.dart  |  25 ++--
+ myandroidapp/lib/db/note.dart                 |  68 ++++++++++
+ myandroidapp/lib/db/notes_database.dart       | 105 ++++++++++++++++
+ myandroidapp/lib/home_page.dart               |  20 +--
+ myandroidapp/lib/main.dart                    |   3 +-
+ myandroidapp/lib/page/edit_note_page.dart     | 117 ++++++++++++++++++
+ myandroidapp/lib/page/note_detail_page.dart   | 101 +++++++++++++++
+ myandroidapp/lib/page/notes_page.dart         | 115 +++++++++++++++++
+ myandroidapp/lib/sticky_notes.dart            |  33 +++++
+ myandroidapp/lib/widget/note_card_widget.dart |  74 +++++++++++
+ myandroidapp/lib/widget/note_form_widget.dart |  90 ++++++++++++++
+ myandroidapp/pubspec.lock                     |  35 ++++++
+ myandroidapp/pubspec.yaml                     |   6 +
+ 14 files changed, 774 insertions(+), 18 deletions(-)
+ create mode 100644 myandroidapp/assets/sticky-notes.png
+ create mode 100644 myandroidapp/lib/db/note.dart
+ create mode 100644 myandroidapp/lib/db/notes_database.dart
+ create mode 100644 myandroidapp/lib/page/edit_note_page.dart
+ create mode 100644 myandroidapp/lib/page/note_detail_page.dart
+ create mode 100644 myandroidapp/lib/page/notes_page.dart
+ create mode 100644 myandroidapp/lib/sticky_notes.dart
+ create mode 100644 myandroidapp/lib/widget/note_card_widget.dart
+ create mode 100644 myandroidapp/lib/widget/note_form_widget.dart
+
+diff --git a/myandroidapp/assets/sticky-notes.png b/myandroidapp/assets/sticky-notes.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..d1b88186519c6253fa0378f03b3abdb899cb4ed5
+GIT binary patch
+literal 15210
+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
+G-u++I*nEuu
+
+literal 0
+HcmV?d00001
+
+diff --git a/myandroidapp/lib/Fitness_files/flexibilty_essentials.dart b/myandroidapp/lib/Fitness_files/flexibilty_essentials.dart
+index 6ada12b..b4789d7 100644
+--- a/myandroidapp/lib/Fitness_files/flexibilty_essentials.dart
++++ b/myandroidapp/lib/Fitness_files/flexibilty_essentials.dart
+@@ -14,8 +14,8 @@ class  FlexibiltyEssentials extends StatelessWidget {
+         appBar: AppBar(
+           centerTitle: true,
+           backgroundColor: Colors.black,
+-          title:Image.asset(
+-            'appbarlogo.jpg',
++          title:Image.network(
++            'https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/appbarlogo.jpg?raw=true',
+             fit: BoxFit.contain,
+             height: 50,
+           ),
+@@ -48,7 +48,7 @@ class  FlexibiltyEssentials extends StatelessWidget {
+                   children: <Widget>[
+                     Text("Flexibility Essentials", style: TextStyle(color: Colors.white,fontSize: 24)),
+                     SizedBox(height: 20,),
+-                    Text("WorldWorldWorldWorldWorldWorldWorldWorld",style: TextStyle(color: Colors.white)),
++                    Text("This routine is design to Stretch little bit of everything ",style: TextStyle(color: Colors.white)),
+                   ],
+                 ),
+               ),
+@@ -60,10 +60,10 @@ class  FlexibiltyEssentials extends StatelessWidget {
+                     borderRadius: const BorderRadius.all(const Radius.circular(8))
+                 ),
+ 
+-                height: MediaQuery.of(context).size.height * 0.24,
++                height: MediaQuery.of(context).size.height * 0.26,
+                 margin: EdgeInsets.fromLTRB(
+                     MediaQuery.of(context).size.width * 0.05,
+-                    MediaQuery.of(context).size.width * 0.5,
++                    MediaQuery.of(context).size.width * 0.6,
+                     MediaQuery.of(context).size.width * 0.05,
+                     0),
+                 child: ListView(
+@@ -98,14 +98,23 @@ class  FlexibiltyEssentials extends StatelessWidget {
+                 children: [
+ 
+                   SizedBox(
+-                    height: 20,
++                    height: 500,
++                    width: 500,
+                   ),
+                   ElevatedButton(
+-
+-                    onPressed: () {},
+                     child: Text('ElevatedButton'),
++                    style: ElevatedButton.styleFrom(
++                        primary: Color.fromRGBO(4, 254, 179,0.3),
++                        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
++                        textStyle: TextStyle(
++                            fontSize: 15,
++                            fontWeight: FontWeight.bold)),
++                    onPressed: () {},
++
+                   ),
+ 
++
++
+                 ],
+               ),
+             ]
+diff --git a/myandroidapp/lib/db/note.dart b/myandroidapp/lib/db/note.dart
+new file mode 100644
+index 0000000..54acd31
+--- /dev/null
++++ b/myandroidapp/lib/db/note.dart
+@@ -0,0 +1,68 @@
++final String tableNotes = 'notes';
++
++class NoteFields {
++  static final List<String> values = [
++    /// Add all fields
++    id, isImportant, number, title, description, time
++  ];
++
++  static final String id = '_id';
++  static final String isImportant = 'isImportant';
++  static final String number = 'number';
++  static final String title = 'title';
++  static final String description = 'description';
++  static final String time = 'time';
++}
++
++class Note {
++  final int? id;
++  final bool isImportant;
++  final int number;
++  final String title;
++  final String description;
++  final DateTime createdTime;
++
++  const Note({
++    this.id,
++    required this.isImportant,
++    required this.number,
++    required this.title,
++    required this.description,
++    required this.createdTime,
++  });
++
++  Note copy({
++    int? id,
++    bool? isImportant,
++    int? number,
++    String? title,
++    String? description,
++    DateTime? createdTime,
++  }) =>
++      Note(
++        id: id ?? this.id,
++        isImportant: isImportant ?? this.isImportant,
++        number: number ?? this.number,
++        title: title ?? this.title,
++        description: description ?? this.description,
++        createdTime: createdTime ?? this.createdTime,
++      );
++
++  static Note fromJson(Map<String, Object?> json) => Note(
++        id: json[NoteFields.id] as int?,
++        isImportant: json[NoteFields.isImportant] == 1,
++        number: json[NoteFields.number] as int,
++        title: json[NoteFields.title] as String,
++        description: json[NoteFields.description] as String,
++        createdTime: DateTime.parse(json[NoteFields.time] as String),
++      );
++
++  Map<String, Object?> toJson() => {
++        NoteFields.id: id,
++        NoteFields.title: title,
++        NoteFields.isImportant: isImportant ? 1 : 0,
++        NoteFields.number: number,
++        NoteFields.description: description,
++        NoteFields.time: createdTime.toIso8601String(),
++      };
++}
+diff --git a/myandroidapp/lib/db/notes_database.dart b/myandroidapp/lib/db/notes_database.dart
+new file mode 100644
+index 0000000..7964189
+--- /dev/null
++++ b/myandroidapp/lib/db/notes_database.dart
+@@ -0,0 +1,105 @@
++import 'package:path/path.dart';
++import 'package:sqflite/sqflite.dart';
++import 'note.dart';
++
++class NotesDatabase {
++  static final NotesDatabase instance = NotesDatabase._init();
++
++  static Database? _database;
++
++  NotesDatabase._init();
++
++  Future<Database> get database async {
++    if (_database != null) return _database!;
++
++    _database = await _initDB('notes.db');
++    return _database!;
++  }
++
++  Future<Database> _initDB(String filePath) async {
++    final dbPath = await getDatabasesPath();
++    final path = join(dbPath, filePath);
++
++    return await openDatabase(path, version: 1, onCreate: _createDB);
++  }
++
++  Future _createDB(Database db, int version) async {
++    final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
++    final textType = 'TEXT NOT NULL';
++    final boolType = 'BOOLEAN NOT NULL';
++    final integerType = 'INTEGER NOT NULL';
++
++    await db.execute('''
++CREATE TABLE $tableNotes ( 
++  ${NoteFields.id} $idType, 
++  ${NoteFields.isImportant} $boolType,
++  ${NoteFields.number} $integerType,
++  ${NoteFields.title} $textType,
++  ${NoteFields.description} $textType,
++  ${NoteFields.time} $textType
++  )
++''');
++  }
++
++  Future<Note> create(Note note) async {
++    final db = await instance.database;
++    final id = await db.insert(tableNotes, note.toJson());
++    return note.copy(id: id);
++  }
++
++  Future<Note> readNote(int id) async {
++    final db = await instance.database;
++
++    final maps = await db.query(
++      tableNotes,
++      columns: NoteFields.values,
++      where: '${NoteFields.id} = ?',
++      whereArgs: [id],
++    );
++
++    if (maps.isNotEmpty) {
++      return Note.fromJson(maps.first);
++    } else {
++      throw Exception('ID $id not found');
++    }
++  }
++
++  Future<List<Note>> readAllNotes() async {
++    final db = await instance.database;
++
++    final orderBy = '${NoteFields.time} ASC';
++    // final result =
++    //     await db.rawQuery('SELECT * FROM $tableNotes ORDER BY $orderBy');
++
++    final result = await db.query(tableNotes, orderBy: orderBy);
++
++    return result.map((json) => Note.fromJson(json)).toList();
++  }
++
++  Future<int> update(Note note) async {
++    final db = await instance.database;
++
++    return db.update(
++      tableNotes,
++      note.toJson(),
++      where: '${NoteFields.id} = ?',
++      whereArgs: [note.id],
++    );
++  }
++
++  Future<int> delete(int id) async {
++    final db = await instance.database;
++
++    return await db.delete(
++      tableNotes,
++      where: '${NoteFields.id} = ?',
++      whereArgs: [id],
++    );
++  }
++
++  Future close() async {
++    final db = await instance.database;
++
++    db.close();
++  }
++}
+diff --git a/myandroidapp/lib/home_page.dart b/myandroidapp/lib/home_page.dart
+index a6fc50f..51beb3e 100644
+--- a/myandroidapp/lib/home_page.dart
++++ b/myandroidapp/lib/home_page.dart
+@@ -1,4 +1,6 @@
++import 'package:flutter/cupertino.dart';
+ import 'package:flutter/material.dart';
++import 'package:flutter/rendering.dart';
+ import 'package:myandroidapp/main.dart';
+ import 'Fitness_files/flexibilty_essentials.dart';
+ import 'NavBar.dart';
+@@ -45,11 +47,11 @@ class _HomePageState extends State<HomePage> {
+       appBar: AppBar(
+         centerTitle: true,
+         backgroundColor: Colors.black,
+-        title:Image.asset(
+-                'appbarlogo.jpg',
+-                fit: BoxFit.contain,
+-                height: 50,
+-              ),
++        title:Image.network(
++          'https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/appbarlogo.jpg?raw=true',
++          fit: BoxFit.contain,
++          height: 50,
++        ),
+         actions: [
+           IconButton(
+             icon: Icon(Icons.settings),
+@@ -156,8 +158,8 @@ class _HomePageState extends State<HomePage> {
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children:[
+ 
+-                        Image.asset(
+-                        'fitness.png',
++                        Image.network(
++                        "https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/fitness.png?raw=true",
+                         fit: BoxFit.contain,
+                         height: 80,
+                         ),
+@@ -179,8 +181,8 @@ class _HomePageState extends State<HomePage> {
+                          mainAxisAlignment: MainAxisAlignment.center,
+ 
+                          children:[
+-                           Image.asset(
+-                             'diet.png',
++                           Image.network(
++                             "https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/diet.png?raw=true",
+                              fit: BoxFit.contain,
+                              height: 60,
+                            ),
+diff --git a/myandroidapp/lib/main.dart b/myandroidapp/lib/main.dart
+index 2d0e18b..7814481 100644
+--- a/myandroidapp/lib/main.dart
++++ b/myandroidapp/lib/main.dart
+@@ -4,8 +4,9 @@ import 'NavBar.dart';
+ import 'SecondScreen.dart';
+ import 'Settings.dart';
+ import 'home_page.dart';
++import 'sticky_notes.dart';
+ 
+-void main() => runApp(MaterialApp(home: FlexibiltyEssentials()));
++void main() => runApp(MaterialApp(home: HomePage()));
+ 
+ class LoginPage extends StatelessWidget {
+   final formKey = GlobalKey<FormState>();
+diff --git a/myandroidapp/lib/page/edit_note_page.dart b/myandroidapp/lib/page/edit_note_page.dart
+new file mode 100644
+index 0000000..2fbd780
+--- /dev/null
++++ b/myandroidapp/lib/page/edit_note_page.dart
+@@ -0,0 +1,117 @@
++import 'package:flutter/material.dart';
++import 'package:myandroidapp/db/note.dart';
++import 'package:myandroidapp/db/notes_database.dart';
++import 'package:myandroidapp/widget/note_form_widget.dart';
++
++class AddEditNotePage extends StatefulWidget {
++  final Note? note;
++
++  const AddEditNotePage({
++    Key? key,
++    this.note,
++  }) : super(key: key);
++  @override
++  _AddEditNotePageState createState() => _AddEditNotePageState();
++}
++
++class _AddEditNotePageState extends State<AddEditNotePage> {
++  final _formKey = GlobalKey<FormState>();
++  late bool isImportant;
++  late int number;
++  late String title;
++  late String description;
++
++  @override
++  void initState() {
++    super.initState();
++
++    isImportant = widget.note?.isImportant ?? false;
++    number = widget.note?.number ?? 0;
++    title = widget.note?.title ?? '';
++    description = widget.note?.description ?? '';
++  }
++
++  @override
++  Widget build(BuildContext context) => Scaffold(
++        appBar: AppBar(
++          centerTitle: true,
++          backgroundColor: Colors.black,
++          title:Image.network(
++            'https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/appbarlogo.jpg?raw=true',
++            fit: BoxFit.contain,
++            height: 50,
++          ),
++          actions: [buildButton()],
++        ),
++        body: Form(
++          key: _formKey,
++          child: NoteFormWidget(
++            isImportant: isImportant,
++            number: number,
++            title: title,
++            description: description,
++            onChangedImportant: (isImportant) =>
++                setState(() => this.isImportant = isImportant),
++            onChangedNumber: (number) => setState(() => this.number = number),
++            onChangedTitle: (title) => setState(() => this.title = title),
++            onChangedDescription: (description) =>
++                setState(() => this.description = description),
++          ),
++        ),
++      );
++
++  Widget buildButton() {
++    final isFormValid = title.isNotEmpty && description.isNotEmpty;
++
++    return Padding(
++      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
++      child: ElevatedButton(
++        style: ElevatedButton.styleFrom(
++          onPrimary: Colors.white,
++          primary: isFormValid ? null : Colors.grey.shade700,
++        ),
++        onPressed: addOrUpdateNote,
++        child: Text('Save'),
++      ),
++    );
++  }
++
++  void addOrUpdateNote() async {
++    final isValid = _formKey.currentState!.validate();
++
++    if (isValid) {
++      final isUpdating = widget.note != null;
++
++      if (isUpdating) {
++        await updateNote();
++      } else {
++        await addNote();
++      }
++
++      Navigator.of(context).pop();
++    }
++  }
++
++  Future updateNote() async {
++    final note = widget.note!.copy(
++      isImportant: isImportant,
++      number: number,
++      title: title,
++      description: description,
++    );
++
++    await NotesDatabase.instance.update(note);
++  }
++
++  Future addNote() async {
++    final note = Note(
++      title: title,
++      isImportant: true,
++      number: number,
++      description: description,
++      createdTime: DateTime.now(),
++    );
++
++    await NotesDatabase.instance.create(note);
++  }
++}
+diff --git a/myandroidapp/lib/page/note_detail_page.dart b/myandroidapp/lib/page/note_detail_page.dart
+new file mode 100644
+index 0000000..cd27fc7
+--- /dev/null
++++ b/myandroidapp/lib/page/note_detail_page.dart
+@@ -0,0 +1,101 @@
++import 'package:flutter/material.dart';
++import 'package:intl/intl.dart';
++import 'package:myandroidapp/db/note.dart';
++import 'package:myandroidapp/db/notes_database.dart';
++
++import 'edit_note_page.dart';
++
++class NoteDetailPage extends StatefulWidget {
++  final int noteId;
++
++  const NoteDetailPage({
++    Key? key,
++    required this.noteId,
++  }) : super(key: key);
++
++  @override
++  _NoteDetailPageState createState() => _NoteDetailPageState();
++}
++
++class _NoteDetailPageState extends State<NoteDetailPage> {
++  late Note note;
++  bool isLoading = false;
++
++  @override
++  void initState() {
++    super.initState();
++
++    refreshNote();
++  }
++
++  Future refreshNote() async {
++    setState(() => isLoading = true);
++
++    this.note = await NotesDatabase.instance.readNote(widget.noteId);
++
++    setState(() => isLoading = false);
++  }
++
++  @override
++  Widget build(BuildContext context) => Scaffold(
++        appBar: AppBar(
++          centerTitle: true,
++          backgroundColor: Colors.black,
++          title:Image.network(
++            'https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/appbarlogo.jpg?raw=true',
++            fit: BoxFit.contain,
++            height: 50,
++          ),
++          actions: [editButton(), deleteButton()],
++        ),
++        body: isLoading
++            ? Center(child: CircularProgressIndicator())
++            : Padding(
++                padding: EdgeInsets.all(12),
++                child: ListView(
++                  padding: EdgeInsets.symmetric(vertical: 8),
++                  children: [
++                    Text(
++                      note.title,
++                      style: TextStyle(
++                        color: Colors.white,
++                        fontSize: 22,
++                        fontWeight: FontWeight.bold,
++                      ),
++                    ),
++                    SizedBox(height: 8),
++                    Text(
++                      DateFormat.yMMMd().format(note.createdTime),
++                      style: TextStyle(color: Colors.white38),
++                    ),
++                    SizedBox(height: 8),
++                    Text(
++                      note.description,
++                      style: TextStyle(color: Colors.white70, fontSize: 18),
++                    )
++                  ],
++                ),
++              ),
++      );
++
++  Widget editButton() => IconButton(
++      icon: Icon(Icons.edit_outlined),
++      onPressed: () async {
++        if (isLoading) return;
++
++        await Navigator.of(context).push(MaterialPageRoute(
++          builder: (context) => AddEditNotePage(note: note),
++        ));
++
++        refreshNote();
++      });
++
++  Widget deleteButton() => IconButton(
++        icon: Icon(Icons.delete),
++        onPressed: () async {
++          await NotesDatabase.instance.delete(widget.noteId);
++
++          Navigator.of(context).pop();
++        },
++      );
++}
+diff --git a/myandroidapp/lib/page/notes_page.dart b/myandroidapp/lib/page/notes_page.dart
+new file mode 100644
+index 0000000..2135e82
+--- /dev/null
++++ b/myandroidapp/lib/page/notes_page.dart
+@@ -0,0 +1,115 @@
++import 'package:flutter/material.dart';
++import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
++import 'package:myandroidapp/db/note.dart';
++import 'package:myandroidapp/db/notes_database.dart';
++import 'package:myandroidapp/widget/note_card_widget.dart';
++
++import '../Settings.dart';
++import 'edit_note_page.dart';
++import 'note_detail_page.dart';
++
++class NotesPage extends StatefulWidget {
++  @override
++  _NotesPageState createState() => _NotesPageState();
++}
++
++class _NotesPageState extends State<NotesPage> {
++  late List<Note> notes;
++  bool isLoading = false;
++
++  @override
++  void initState() {
++    super.initState();
++
++    refreshNotes();
++  }
++
++  @override
++  void dispose() {
++    NotesDatabase.instance.close();
++
++    super.dispose();
++  }
++
++  Future refreshNotes() async {
++    setState(() => isLoading = true);
++
++    this.notes = await NotesDatabase.instance.readAllNotes();
++
++    setState(() => isLoading = false);
++  }
++
++  @override
++  Widget build(BuildContext context) => Scaffold(
++        appBar:AppBar(
++          centerTitle: true,
++          backgroundColor: Colors.black,
++          title:Image.network(
++            'https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/appbarlogo.jpg?raw=true',
++            fit: BoxFit.contain,
++            height: 50,
++          ),
++          actions: [
++            IconButton(
++              icon: Icon(Icons.settings),
++              onPressed: () {
++                Navigator.push(
++                  context,
++                  MaterialPageRoute(
++                      builder: (context) => Settings()),
++                );
++              },
++            ),
++          ],
++        ),
++        body: Container(
++          decoration: BoxDecoration(color: Colors.black),
++
++          child: Center(
++
++            child: isLoading
++                ? CircularProgressIndicator()
++                : notes.isEmpty
++                    ? Text(
++                        'No Notes',
++                        style: TextStyle(color: Colors.white, fontSize: 24),
++                      )
++                    : buildNotes(),
++          ),
++        ),
++        floatingActionButton: FloatingActionButton(
++          backgroundColor: Colors.grey,
++          child: Icon(Icons.add),
++          onPressed: () async {
++            await Navigator.of(context).push(
++              MaterialPageRoute(builder: (context) => AddEditNotePage()),
++            );
++
++            refreshNotes();
++          },
++        ),
++      );
++
++  Widget buildNotes() => StaggeredGridView.countBuilder(
++        padding: EdgeInsets.all(8),
++        itemCount: notes.length,
++        staggeredTileBuilder: (index) => StaggeredTile.fit(2),
++        crossAxisCount: 4,
++        mainAxisSpacing: 4,
++        crossAxisSpacing: 4,
++        itemBuilder: (context, index) {
++          final note = notes[index];
++
++          return GestureDetector(
++            onTap: () async {
++              await Navigator.of(context).push(MaterialPageRoute(
++                builder: (context) => NoteDetailPage(noteId: note.id!),
++              ));
++
++              refreshNotes();
++            },
++            child: NoteCardWidget(note: note, index: index),
++          );
++        },
++      );
++}
+diff --git a/myandroidapp/lib/sticky_notes.dart b/myandroidapp/lib/sticky_notes.dart
+new file mode 100644
+index 0000000..bd45213
+--- /dev/null
++++ b/myandroidapp/lib/sticky_notes.dart
+@@ -0,0 +1,33 @@
++import 'package:flutter/material.dart';
++import 'package:flutter/services.dart';
++import 'package:myandroidapp/page/notes_page.dart';
++
++// Future main() async {
++//   WidgetsFlutterBinding.ensureInitialized();
++//   await SystemChrome.setPreferredOrientations([
++//     DeviceOrientation.portraitUp,
++//     DeviceOrientation.portraitDown,
++//   ]);
++//
++//   runApp(MyApp());
++// }
++
++class MyApp22 extends StatelessWidget {
++  static final String title = 'Notes SQLite';
++
++  @override
++  Widget build(BuildContext context) => MaterialApp(
++        debugShowCheckedModeBanner: false,
++        title: title,
++        themeMode: ThemeMode.dark,
++        theme: ThemeData(
++          primaryColor: Colors.white,
++          scaffoldBackgroundColor: Colors.black,
++          appBarTheme: AppBarTheme(
++            backgroundColor: Colors.transparent,
++            elevation: 0,
++          ),
++        ),
++        home: NotesPage(),
++      );
++}
+diff --git a/myandroidapp/lib/widget/note_card_widget.dart b/myandroidapp/lib/widget/note_card_widget.dart
+new file mode 100644
+index 0000000..72f0901
+--- /dev/null
++++ b/myandroidapp/lib/widget/note_card_widget.dart
+@@ -0,0 +1,74 @@
++import 'package:flutter/material.dart';
++import 'package:intl/intl.dart';
++import 'package:myandroidapp/db/note.dart';
++
++final _lightColors = [
++  Colors.amber.shade300,
++  Colors.lightGreen.shade300,
++  Colors.lightBlue.shade300,
++  Colors.orange.shade300,
++  Colors.pinkAccent.shade100,
++  Colors.tealAccent.shade100
++];
++
++class NoteCardWidget extends StatelessWidget {
++  NoteCardWidget({
++    Key? key,
++    required this.note,
++    required this.index,
++  }) : super(key: key);
++
++  final Note note;
++  final int index;
++
++  @override
++  Widget build(BuildContext context) {
++    /// Pick colors from the accent colors based on index
++    final color = _lightColors[index % _lightColors.length];
++    final time = DateFormat.yMMMd().format(note.createdTime);
++    final minHeight = getMinHeight(index);
++
++    return Card(
++      color: color,
++      child: Container(
++        constraints: BoxConstraints(minHeight: minHeight),
++        padding: EdgeInsets.all(8),
++        child: Column(
++          mainAxisSize: MainAxisSize.min,
++          crossAxisAlignment: CrossAxisAlignment.start,
++          children: [
++            Text(
++              time,
++              style: TextStyle(color: Colors.grey.shade700),
++            ),
++            SizedBox(height: 4),
++            Text(
++              note.title,
++              style: TextStyle(
++                color: Colors.black,
++                fontSize: 20,
++                fontWeight: FontWeight.bold,
++              ),
++            ),
++          ],
++        ),
++      ),
++    );
++  }
++
++  /// To return different height for different widgets
++  double getMinHeight(int index) {
++    switch (index % 4) {
++      case 0:
++        return 100;
++      case 1:
++        return 150;
++      case 2:
++        return 150;
++      case 3:
++        return 100;
++      default:
++        return 100;
++    }
++  }
++}
+diff --git a/myandroidapp/lib/widget/note_form_widget.dart b/myandroidapp/lib/widget/note_form_widget.dart
+new file mode 100644
+index 0000000..30a6955
+--- /dev/null
++++ b/myandroidapp/lib/widget/note_form_widget.dart
+@@ -0,0 +1,90 @@
++import 'package:flutter/material.dart';
++
++class NoteFormWidget extends StatelessWidget {
++  final bool? isImportant;
++  final int? number;
++  final String? title;
++  final String? description;
++  final ValueChanged<bool> onChangedImportant;
++  final ValueChanged<int> onChangedNumber;
++  final ValueChanged<String> onChangedTitle;
++  final ValueChanged<String> onChangedDescription;
++
++  const NoteFormWidget({
++    Key? key,
++    this.isImportant = false,
++    this.number = 0,
++    this.title = '',
++    this.description = '',
++    required this.onChangedImportant,
++    required this.onChangedNumber,
++    required this.onChangedTitle,
++    required this.onChangedDescription,
++  }) : super(key: key);
++
++  @override
++  Widget build(BuildContext context) => SingleChildScrollView(
++        child: Padding(
++          padding: EdgeInsets.all(16),
++          child: Column(
++            mainAxisSize: MainAxisSize.min,
++            children: [
++              Row(
++                children: [
++                  Switch(
++                    value: isImportant ?? false,
++                    onChanged: onChangedImportant,
++                  ),
++                  Expanded(
++                    child: Slider(
++                      value: (number ?? 0).toDouble(),
++                      min: 0,
++                      max: 5,
++                      divisions: 5,
++                      onChanged: (number) => onChangedNumber(number.toInt()),
++                    ),
++                  )
++                ],
++              ),
++              buildTitle(),
++              SizedBox(height: 8),
++              buildDescription(),
++              SizedBox(height: 16),
++            ],
++          ),
++        ),
++      );
++
++  Widget buildTitle() => TextFormField(
++        maxLines: 1,
++        initialValue: title,
++        style: TextStyle(
++          color: Colors.white70,
++          fontWeight: FontWeight.bold,
++          fontSize: 24,
++        ),
++        decoration: InputDecoration(
++          border: InputBorder.none,
++          hintText: 'Title',
++          hintStyle: TextStyle(color: Colors.white70),
++        ),
++        validator: (title) =>
++            title != null && title.isEmpty ? 'The title cannot be empty' : null,
++        onChanged: onChangedTitle,
++      );
++
++  Widget buildDescription() => TextFormField(
++        maxLines: 5,
++        initialValue: description,
++        style: TextStyle(color: Colors.white60, fontSize: 18),
++        decoration: InputDecoration(
++          border: InputBorder.none,
++          hintText: 'Type something...',
++          hintStyle: TextStyle(color: Colors.white60),
++        ),
++        validator: (title) => title != null && title.isEmpty
++            ? 'The description cannot be empty'
++            : null,
++        onChanged: onChangedDescription,
++      );
++}
+diff --git a/myandroidapp/pubspec.lock b/myandroidapp/pubspec.lock
+index b1e7abc..831455e 100644
+--- a/myandroidapp/pubspec.lock
++++ b/myandroidapp/pubspec.lock
+@@ -76,6 +76,13 @@ packages:
+       url: "https://pub.dartlang.org"
+     source: hosted
+     version: "1.0.4"
++  flutter_staggered_grid_view:
++    dependency: "direct main"
++    description:
++      name: flutter_staggered_grid_view
++      url: "https://pub.dartlang.org"
++    source: hosted
++    version: "0.4.1"
+   flutter_test:
+     dependency: "direct dev"
+     description: flutter
+@@ -93,6 +100,13 @@ packages:
+       url: "https://pub.dartlang.org"
+     source: hosted
+     version: "0.15.0"
++  intl:
++    dependency: "direct main"
++    description:
++      name: intl
++      url: "https://pub.dartlang.org"
++    source: hosted
++    version: "0.17.0"
+   js:
+     dependency: transitive
+     description:
+@@ -147,6 +161,20 @@ packages:
+       url: "https://pub.dartlang.org"
+     source: hosted
+     version: "1.8.1"
++  sqflite:
++    dependency: "direct main"
++    description:
++      name: sqflite
++      url: "https://pub.dartlang.org"
++    source: hosted
++    version: "2.0.2"
++  sqflite_common:
++    dependency: transitive
++    description:
++      name: sqflite_common
++      url: "https://pub.dartlang.org"
++    source: hosted
++    version: "2.2.0"
+   stack_trace:
+     dependency: transitive
+     description:
+@@ -168,6 +196,13 @@ packages:
+       url: "https://pub.dartlang.org"
+     source: hosted
+     version: "1.1.0"
++  synchronized:
++    dependency: transitive
++    description:
++      name: synchronized
++      url: "https://pub.dartlang.org"
++    source: hosted
++    version: "3.0.0+2"
+   term_glyph:
+     dependency: transitive
+     description:
+diff --git a/myandroidapp/pubspec.yaml b/myandroidapp/pubspec.yaml
+index 518c078..94364ac 100644
+--- a/myandroidapp/pubspec.yaml
++++ b/myandroidapp/pubspec.yaml
+@@ -35,6 +35,12 @@ dependencies:
+   # Use with the CupertinoIcons class for iOS style icons.
+   cupertino_icons: ^1.0.2
+ 
++  sqflite: ^2.0.0+3
++
++  intl: ^0.17.0
++
++  flutter_staggered_grid_view: ^0.4.0-nullsafety.3
++
+ dev_dependencies:
+   flutter_test:
+     sdk: flutter
+-- 
+2.35.1.windows.2
+

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:myandroidapp/main.dart';
+import 'package:myandroidapp/sticky_notes.dart';
 import 'Fitness_files/flexibilty_essentials.dart';
 import 'NavBar.dart';
 import 'package:video_player/video_player.dart';
@@ -142,79 +143,109 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                  Container(
-                    width: 120,
-                    height: 120,
-                    margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0, bottom: 20.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: Color.fromRGBO(4, 254, 179,0.3)),
-                        color: Colors.grey.withOpacity(0.2),
-                        borderRadius: const BorderRadius.all(const Radius.circular(8))
-                    ),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children:[
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => StickNotes()),
+                          );
+                        },
+                        child: Container(
+                          width: 120,
+                          height: 120,
+                          margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0, bottom: 20.0),
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 1, color: Color.fromRGBO(4, 254, 179,0.3)),
+                              color: Colors.grey.withOpacity(0.2),
+                              borderRadius: const BorderRadius.all(const Radius.circular(8))
+                          ),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children:[
 
-                        Image.network(
-                        "https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/fitness.png?raw=true",
-                        fit: BoxFit.contain,
-                        height: 80,
+                              Image.network(
+                              "https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/fitness.png?raw=true",
+                              fit: BoxFit.contain,
+                              height: 80,
+                              ),
+
+                                Text("Fitness", style: TextStyle(fontSize: 18, color: Colors.white)),
+
+                          ]),
                         ),
+                    ),
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => StickNotes()),
+                          );
+                        },
+                       child: Container(
+                         width: 120,
+                         height: 120,
+                         margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0, bottom: 20.0),
+                         decoration: BoxDecoration(
+                             border: Border.all(width: 1, color: Color.fromRGBO(4, 254, 179,0.3)),
+                             color: Colors.grey.withOpacity(0.2),
+                             borderRadius: const BorderRadius.all(const Radius.circular(8))
+                         ),
+                         child: Column(
+                             mainAxisAlignment: MainAxisAlignment.center,
 
-                          Text("Fitness", style: TextStyle(fontSize: 18, color: Colors.white)),
+                             children:[
+                               Image.network(
+                                 "https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/diet.png?raw=true",
+                                 fit: BoxFit.contain,
+                                 height: 60,
+                               ),
+                               SizedBox(height: 10),
+                               Text("Diet", style: TextStyle(fontSize: 18, color: Colors.white)),
+                             ]),
+                       ),
+                     ),
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => StickNotes()),
+                          );
+                        },
+                       child: Container(
+                         width: 120,
+                         height: 120,
+                         margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0, bottom: 20.0),
+                         decoration: BoxDecoration(
+                             border: Border.all(width: 1, color: Color.fromRGBO(4, 254, 179,0.3)),
+                             color: Colors.grey.withOpacity(0.2),
+                             borderRadius: const BorderRadius.all(const Radius.circular(8))
+                         ),
+                         child: Column(
+                             mainAxisAlignment: MainAxisAlignment.center,
+                             children:[
+                               Image.network(
+                                 "https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/resume.png?raw=true",
+                                 fit: BoxFit.contain,
+                                 height: 60,
+                               ),
+                               SizedBox(height: 10),
 
-                    ]),
+                               Text("Notes", style: TextStyle(fontSize: 18, color: Colors.white)),
+
+                             ]),
+                       ),
+                     ),
+
+                   ],
                   ),
-                   Container(
-                     width: 120,
-                     height: 120,
-                     margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0, bottom: 20.0),
-                     decoration: BoxDecoration(
-                         border: Border.all(width: 1, color: Color.fromRGBO(4, 254, 179,0.3)),
-                         color: Colors.grey.withOpacity(0.2),
-                         borderRadius: const BorderRadius.all(const Radius.circular(8))
-                     ),
-                     child: Column(
-                         mainAxisAlignment: MainAxisAlignment.center,
-
-                         children:[
-                           Image.network(
-                             "https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/diet.png?raw=true",
-                             fit: BoxFit.contain,
-                             height: 60,
-                           ),
-                           SizedBox(height: 10),
-                           Text("Diet", style: TextStyle(fontSize: 18, color: Colors.white)),
-                         ]),
-                   ),
-                   Container(
-                     width: 120,
-                     height: 120,
-                     margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0, bottom: 20.0),
-                     decoration: BoxDecoration(
-                         border: Border.all(width: 1, color: Color.fromRGBO(4, 254, 179,0.3)),
-                         color: Colors.grey.withOpacity(0.2),
-                         borderRadius: const BorderRadius.all(const Radius.circular(8))
-                     ),
-                     child: Column(
-                         mainAxisAlignment: MainAxisAlignment.center,
-                         children:[
-                           Image.network(
-                             "https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/resume.png?raw=true",
-                             fit: BoxFit.contain,
-                             height: 60,
-                           ),
-                           SizedBox(height: 10),
-
-                           Text("Profile", style: TextStyle(fontSize: 18, color: Colors.white)),
-
-                         ]),
-                   ),
-
-                 ],
                 ),
 
                 SizedBox(height: 20),

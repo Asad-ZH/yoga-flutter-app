@@ -12,7 +12,7 @@ import 'package:myandroidapp/page/notes_page.dart';
 //   runApp(MyApp());
 // }
 
-class MyApp22 extends StatelessWidget {
+class StickNotes extends StatelessWidget {
   static final String title = 'Notes SQLite';
 
   @override

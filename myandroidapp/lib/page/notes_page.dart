@@ -41,10 +41,10 @@ class _NotesPageState extends State<NotesPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar:AppBar(
+        appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.black,
-          title:Image.network(
+          title: Image.network(
             'https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/appbarlogo.jpg?raw=true',
             fit: BoxFit.contain,
             height: 50,
@@ -55,8 +55,7 @@ class _NotesPageState extends State<NotesPage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => Settings()),
+                  MaterialPageRoute(builder: (context) => Settings()),
                 );
               },
             ),
@@ -64,9 +63,7 @@ class _NotesPageState extends State<NotesPage> {
         ),
         body: Container(
           decoration: BoxDecoration(color: Colors.black),
-
           child: Center(
-
             child: isLoading
                 ? CircularProgressIndicator()
                 : notes.isEmpty

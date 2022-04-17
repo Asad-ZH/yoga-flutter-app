@@ -39,7 +39,7 @@ class Settings extends StatelessWidget {
                color: Colors.grey.withOpacity(0.2),
                borderRadius: const BorderRadius.all(const Radius.circular(8))
            ),
-          height: 250,
+          height: 285,
           margin: EdgeInsets.fromLTRB(
               MediaQuery.of(context).size.width * 0.1,
               MediaQuery.of(context).size.width * 0.05,
