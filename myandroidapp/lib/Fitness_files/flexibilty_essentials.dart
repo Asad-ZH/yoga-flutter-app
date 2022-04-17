@@ -14,8 +14,8 @@ class  FlexibiltyEssentials extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.black,
-          title:Image.asset(
-            'appbarlogo.jpg',
+          title:Image.network(
+            'https://github.com/Asad-ZH/yoga-flutter-app/blob/main/myandroidapp/assets/appbarlogo.jpg?raw=true',
             fit: BoxFit.contain,
             height: 50,
           ),
@@ -48,7 +48,7 @@ class  FlexibiltyEssentials extends StatelessWidget {
                   children: <Widget>[
                     Text("Flexibility Essentials", style: TextStyle(color: Colors.white,fontSize: 24)),
                     SizedBox(height: 20,),
-                    Text("WorldWorldWorldWorldWorldWorldWorldWorld",style: TextStyle(color: Colors.white)),
+                    Text("This routine is design to Stretch little bit of everything ",style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),
@@ -60,10 +60,10 @@ class  FlexibiltyEssentials extends StatelessWidget {
                     borderRadius: const BorderRadius.all(const Radius.circular(8))
                 ),
 
-                height: MediaQuery.of(context).size.height * 0.24,
+                height: MediaQuery.of(context).size.height * 0.26,
                 margin: EdgeInsets.fromLTRB(
                     MediaQuery.of(context).size.width * 0.05,
-                    MediaQuery.of(context).size.width * 0.5,
+                    MediaQuery.of(context).size.width * 0.6,
                     MediaQuery.of(context).size.width * 0.05,
                     0),
                 child: ListView(
@@ -98,13 +98,22 @@ class  FlexibiltyEssentials extends StatelessWidget {
                 children: [
 
                   SizedBox(
-                    height: 20,
+                    height: 500,
+                    width: 500,
                   ),
                   ElevatedButton(
-
-                    onPressed: () {},
                     child: Text('ElevatedButton'),
+                    style: ElevatedButton.styleFrom(
+                        primary: Color.fromRGBO(4, 254, 179,0.3),
+                        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                        textStyle: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold)),
+                    onPressed: () {},
+
                   ),
+
+
 
                 ],
               ),
